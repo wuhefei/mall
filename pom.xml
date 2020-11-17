@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.atguigu.gulimall</groupId>
+    <artifactId>gulimall</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>gulimall</name>
+    <description>谷粒商城-集合项目</description>
+    <packaging>pom</packaging>
+
+    <!--sonarqube analysis代码分析的-->
+  <!--  <properties>
+         <sonar.jacoco.reportPaths>${PWD}/./target/jacoco.exec</sonar.jacoco.reportPaths>
+        <sonar.groovy.binaries>target/classes</sonar.groovy.binaries>
+    </properties>-->
+
+    <modules>
+        <module>gulimall-common</module> <!--基础服务 公公部分-->
+        <module>gulimall-coupon</module> <!--优惠服务 对应数据库：gulimall_sms [s：秒杀之意] 7000-->
+        <module>gulimall-member</module> <!--会员服务 对应数据库：gulimall_ums 端口8000-->
+        <module>gulimall-order</module> <!--订单服务 端口9000-->
+        <module>gulimall-product</module> <!--商品服务 对应数据库：gulimall_pms 端口：10000-->
+        <module>gulimall-ware</module> <!--仓储服务 端口：11000-->
+        <module>gulimall-gateway</module> <!--api（application program interface） 网关 端口88-->
+        <module>gulimall-third-party</module> <!--第三方服务 oss 等 30000-->
+        <module>gulimall-search</module> <!--elaticsearch 检索服务 9200端口-->
+        <module>gulimall-auth-server</module> <!--认证中心（社交登录、OAuth2.0、单点登录） 端口：20000-->
+        <module>gulimall-seckill</module> <!--秒杀服务 端口25000-->
+        <module>gulimall-cart</module> <!--购物车服务 端口：31000-->
+        <module>renren-fast</module> <!--后台管理-后端-人人开源-->
+        <!--<module>renren-generator</module>--> <!--代称生成器 人人开源-->
+
+    </modules>
+
+<!--sonarqube analysis代码分析的-->
+    <!--<build>
+        <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.2</version>
+                <configuration>
+                    <append>true</append>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>agent-for-ut</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>agent-for-it</id>
+                        <goals>
+                            <goal>prepare-agent-integration</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jacoco-site</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <fork>true</fork>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.6.0.1398</version>
+            </plugin>
+        </plugins>
+    </build>-->
+</project>

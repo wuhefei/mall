@@ -1,0 +1,101 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: test_route
+          uri: https://www.baidu.com
+          predicates:
+            - Query=url,baidu
+
+        - id: qq_route
+          uri: https://www.qq.com
+          predicates:
+            - Query=url,qq
+
+        # 分类维护菜单的路由 需要放在admin_route的前面要不然会被拦截到了，精细路由在前。
+        - id: product_route
+          uri: lb://gulimall-product
+          predicates:
+            - Path=/api/product/**,/hello
+          filters:
+            - RewritePath=/api/(?<segment>/?.*),/$\{segment}
+        # 优惠服务网关配置
+        - id: coupon_route
+          uri: lb://gulimall-coupon
+          predicates:
+            - Path=/api/coupon/**
+          filters:
+            - RewritePath=/api/(?<segment>/?.*),/$\{segment}
+
+        #库存
+        - id: ware_route
+          uri: lb://gulimall-ware
+          predicates:
+            - Path=/api/ware/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+
+        # 阿里云oss对象存储，或者第三方服务均路由到gulimall-third-party服务
+        - id: third_party_route
+          uri: lb://gulimall-third-party
+          predicates:
+            - Path=/api/thirdparty/**
+          filters:
+            - RewritePath=/api/thirdparty/(?<segment>/?.*),/$\{segment}
+
+        #会员服务路由
+        - id: member_route
+          uri: lb://gulimall-member
+          predicates:
+            - Path=/api/member/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+        #人人vue过来的
+        - id: admin_route
+          uri: lb://renren-fast
+          predicates:
+            - Path=/api/**
+          filters:
+            - RewritePath=/api/(?<segment>/?.*), /renren-fast/$\{segment}
+## 前端项目，/api 确定这种规则
+# 在添加filter之前的地址：http://localhost:88/api/captcha.jpg?uuid=f5b8f0f7-d53e-4d2d-8d58-9030c9a82b12
+# 正确的地址：           http://localhost:8080/renren-fast/captcha.jpg?uuid=f5b8f0f7-d53e-4d2d-8d58-9030c9a82b12
+# 分类维护菜单  http://localhost:88/api/product/category/list/tree链接是错误的
+#需要重写为：   http://localhost:10000/product/category/list/tree
+        #nginx 网关路由规则 商品首页
+        - id: gulimall_host_route
+          uri: lb://gulimall-product
+          predicates:
+            - Host=gulimall.com,item.gulimall.com
+        #nginx 网关路由规则 搜索首页
+        - id: gulimall_search_route
+          uri: lb://gulimall-search
+          predicates:
+            - Host=search.gulimall.com
+        #nginx 网关路由规则 认证服务
+        - id: gulimall_auth_route
+          uri: lb://gulimall-auth-server
+          predicates:
+            - Host=auth.gulimall.com
+        #nginx 网关路由规则 购物车服务
+        - id: gulimall_cart_route
+          uri: lb://gulimall-cart
+          predicates:
+            - Host=cart.gulimall.com
+        #nginx 网关路由规则 订单服务
+        - id: gulimall_order_route
+          uri: lb://gulimall-order
+          predicates:
+            - Host=order.gulimall.com
+        #nginx 网关路由规则 会员服务
+        - id: gulimall_member_route
+          uri: lb://gulimall-member
+          predicates:
+            - Host=member.gulimall.com
+        #nginx 网关路由规则 秒杀服务
+        - id: gulimall_seckill_route
+          uri: lb://gulimall-seckill
+          predicates:
+            - Host=seckill.gulimall.com
+
+

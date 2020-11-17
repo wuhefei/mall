@@ -1,0 +1,19 @@
+server:
+  port: 30000
+
+spring:
+  application:
+    name: gulimall-third-party
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    alicloud:
+      sms:
+        access-key-id: LTAI4G5yG6BrzWiYWE1K46wj #发送短息用
+        secret: X7Eq9xPfc6x1giQVmxMKNN1DPiEnYO #发送短息用
+
+logging:
+  level:
+    com.atguigu.gulimall.product: debug
+

@@ -1,0 +1,36 @@
+#ipAddr: 192.168.56.10
+server:
+  port: 25000
+
+spring:
+  application:
+    name: gulimall-seckill
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 127.0.0.1:8848
+#    sentinel:
+#      transport:
+#        dashboard: localhost:8333
+#        port: 8719
+#  redis:
+#    host: ${ipAddr}
+  session:
+    store-type: redis #使用reids做缓存。
+  rabbitmq:
+    virtual-host: /
+    host: rabbitmq-management.gulimall
+  thymeleaf:
+    cache: false
+  task:
+    execution:
+      pool:
+        core-size: 5 #以异步的方式启动定时任务线程池大小
+        max-size: 50 #以异步的方式启动定时任务线程池最大值大小
+    #    scheduling:
+    #      pool:
+    #        size: 5
+logging:
+  level:
+    org.springframework.cloud.openfeign: debug
+    org.springframework.cloud.sleuth: debug

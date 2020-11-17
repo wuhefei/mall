@@ -1,0 +1,41 @@
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://192.168.56.10:3306/gulimall_pms
+    #url: jdbc:mysql://192.168.56.10:3306/gulimall-pms?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.jdbc.Driver
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848 #注册中心
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss #设置jackson对时间的格式化规范
+  thymeleaf:
+    cache: false #关闭thymleaf的缓存功能，开发阶段可以看到试试刷新效果，上线后打开缓存。
+  redis:
+    host: 192.168.56.10
+    port: 6379
+
+
+#在配置中心配置了，在gulimall-third-party中统一对外提供服务
+#    alicloud:
+#      access-key: LTAI4G5yG6BrzWiYWE1K46wj
+#      secret-key: X7Eq9xPfc6x1giQVmxMKNN1DPiEnYO
+#      oss:
+#        endpoint: oss-cn-shanghai.aliyuncs.com
+# MapperScan
+# sql映射文件位置
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**/*.xml
+  global-config:
+    db-config:
+      id-type: auto #主键自增
+      logic-delete-value: 1 #1为逻辑删除
+      logic-not-delete-value: 0 #0为逻辑删除
+server:
+  port: 10001
+
+logging: #设置日志级别，可以查看详细的日志，当然这里主要看sql
+  level:
+    com.atguigu.gulimall.product: debug
